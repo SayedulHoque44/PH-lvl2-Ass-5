@@ -5,16 +5,34 @@ import { IoMdClose } from "react-icons/io";
 
 import Form from "../../../components/Form/Form";
 import FormInput from "../../../components/Form/FormInput";
-import { checkStringOrNumber } from "../CardContainer/Card/UpdateGadgetsModal/UpdateGadgetsModal";
+
+import { toast } from "sonner";
+import { useAddGadgetsMutation } from "../../../redux/features/gadgetsManagment/gadGetsManagmentApi";
+import { checkStringOrNumber, compareObj } from "../../../utils/utils";
 import { exampleGadget } from "./gadgets.const";
 
 const AddNewGadget = ({ open, setOpen }) => {
   const { features, ...remainingInfo } = exampleGadget;
+  const [addGadgets, { isLoading }] = useAddGadgetsMutation();
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const gadgetsUpdateFeatures = compareObj(features, data);
+    const gadgetsOtherUpdateFields = compareObj(remainingInfo, data);
+
+    const gadgetsInfo = {
+      ...gadgetsOtherUpdateFields,
+      features: { ...gadgetsUpdateFeatures },
+    };
+
+    try {
+      const res = await addGadgets(gadgetsInfo).unwrap();
+      toast.success(res.message);
+      handleClose();
+    } catch (error: any) {
+      toast.error(error.data.message);
+    }
   };
   return (
     <div>
@@ -52,7 +70,7 @@ const AddNewGadget = ({ open, setOpen }) => {
               variant="h6"
               component="h2"
               className="flex justify-between">
-              <span>Update Gadgets</span>
+              <span>Add Gadgets</span>
               <span
                 onClick={handleClose}
                 className="p-2 cursor-pointer bg-red-400 text-white">
@@ -66,9 +84,10 @@ const AddNewGadget = ({ open, setOpen }) => {
               <Form
                 onSubmit={onSubmit}
                 defaultValues={{ ...remainingInfo, ...features }}>
-                {Object.entries(remainingInfo).map((featureEleArray) => {
+                {Object.entries(remainingInfo).map((featureEleArray, index) => {
                   return (
                     <FormInput
+                      key={index}
                       type={checkStringOrNumber(featureEleArray[1])}
                       name={featureEleArray[0]}
                       label={featureEleArray[0]}
@@ -77,10 +96,13 @@ const AddNewGadget = ({ open, setOpen }) => {
                 })}
                 {features && (
                   <>
-                    <h2 className="border-b-2">Featurs</h2>
-                    {Object.entries(features).map((featureEleArray) => {
+                    <h2 className="border-b-2 border-blue-400 text-blue-400">
+                      Featurs :
+                    </h2>
+                    {Object.entries(features).map((featureEleArray, index) => {
                       return (
                         <FormInput
+                          key={index}
                           type={checkStringOrNumber(featureEleArray[1])}
                           name={featureEleArray[0]}
                           label={featureEleArray[0]}
@@ -90,9 +112,10 @@ const AddNewGadget = ({ open, setOpen }) => {
                   </>
                 )}
                 <button
-                  className="text-white w-full bg-blue-500 border-none p-2 "
+                  disabled={isLoading}
+                  className="text-white disabled:bg-gray-500 w-full bg-blue-500 border-none p-2 "
                   type="submit">
-                  Update
+                  Add
                 </button>
               </Form>
             </Typography>

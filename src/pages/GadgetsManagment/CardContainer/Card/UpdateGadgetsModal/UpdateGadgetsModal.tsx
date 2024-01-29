@@ -9,31 +9,8 @@ import Form from "../../../../../components/Form/Form";
 import FormInput from "../../../../../components/Form/FormInput";
 import { useUpdateGadgetsMutation } from "../../../../../redux/features/gadgetsManagment/gadGetsManagmentApi";
 import { TGadgets } from "../../../../../types/Types";
+import { checkStringOrNumber, compareObj } from "../../../../../utils/utils";
 
-export const checkStringOrNumber = (value) => {
-  if (typeof value === "number") {
-    return "number";
-  } else if (typeof value === "string") {
-    return "text";
-  }
-  return "text";
-};
-
-const compareObj = (matchObj, mainObj) => {
-  const numberValueToBe = ["quantity", "price"];
-  const reqObj: Record<string, unknown> = {};
-  Object.keys(matchObj).forEach((key) => {
-    // eslint-disable-next-line no-prototype-builtins
-    if (mainObj.hasOwnProperty(key)) {
-      if (numberValueToBe.find((ele) => ele === key)) {
-        reqObj[`${key}`] = parseInt(mainObj[key]);
-      } else {
-        reqObj[`${key}`] = mainObj[key];
-      }
-    }
-  });
-  return reqObj;
-};
 type TUpdateGadgetsModal = {
   gadGets: TGadgets;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -45,9 +22,10 @@ export default function UpdateGadgetsModal({
   setOpen,
   open,
 }: TUpdateGadgetsModal) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { features, createdAt, updatedAt, __v, _id, ...remainingInfo } =
     gadGets;
-  const [updateGadgets] = useUpdateGadgetsMutation();
+  const [updateGadgets, { isLoading }] = useUpdateGadgetsMutation();
   const handleClose = () => setOpen(false);
 
   // const manipulatePrimitiveNonPremitive = () => {
@@ -61,7 +39,6 @@ export default function UpdateGadgetsModal({
 
   //
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     const gadgetsUpdateFeatures = compareObj(features, data);
     const gadgetsOtherUpdateFields = compareObj(remainingInfo, data);
 
@@ -71,7 +48,6 @@ export default function UpdateGadgetsModal({
     };
     const gadgetsId = gadGets._id;
     const apiValue = { updateGadgetsValue, gadgetsId };
-    console.log(updateGadgetsValue);
 
     try {
       const res = await updateGadgets(apiValue).unwrap();
@@ -134,9 +110,10 @@ export default function UpdateGadgetsModal({
               <FormInput type="number" name="price" label="price" />
               <FormInput type="number" name="quantity" label="quantity" />
               <FormInput type="text" name="releaseDate" label="releaseDate" /> */}
-              {Object.entries(remainingInfo).map((featureEleArray) => {
+              {Object.entries(remainingInfo).map((featureEleArray, index) => {
                 return (
                   <FormInput
+                    key={index}
                     type={checkStringOrNumber(featureEleArray[1])}
                     name={featureEleArray[0]}
                     label={featureEleArray[0]}
@@ -145,10 +122,13 @@ export default function UpdateGadgetsModal({
               })}
               {features && (
                 <>
-                  <h2>Featurs</h2>
-                  {Object.entries(features).map((featureEleArray) => {
+                  <h2 className="border-b-2 border-blue-400 text-blue-400">
+                    Featurs :
+                  </h2>
+                  {Object.entries(features).map((featureEleArray, index) => {
                     return (
                       <FormInput
+                        key={index}
                         type={checkStringOrNumber(featureEleArray[1])}
                         name={featureEleArray[0]}
                         label={featureEleArray[0]}
@@ -158,7 +138,8 @@ export default function UpdateGadgetsModal({
                 </>
               )}
               <button
-                className="text-white w-full bg-blue-500 border-none p-2 "
+                disabled={isLoading}
+                className="text-white disabled:bg-gray-500 w-full bg-blue-500 border-none p-2 "
                 type="submit">
                 Update
               </button>

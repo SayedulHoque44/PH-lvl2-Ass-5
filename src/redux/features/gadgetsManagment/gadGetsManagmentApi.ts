@@ -37,7 +37,7 @@ const gadgetManagmentApi = baseApi.injectEndpoints({
     }),
     updateGadgets: builder.mutation({
       query: ({ updateGadgetsValue, gadgetsId }) => {
-        console.log(updateGadgetsValue, gadgetsId);
+        // console.log(updateGadgetsValue, gadgetsId);
         return {
           url: `/gadgets/${gadgetsId}`,
           method: "PATCH",
@@ -46,8 +46,55 @@ const gadgetManagmentApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["gadgets"],
     }),
+    deleteGadgets: builder.mutation({
+      query: ({ gadgetsId }) => {
+        // console.log(updateGadgetsValue, gadgetsId);
+        return {
+          url: `/gadgets/${gadgetsId}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["gadgets"],
+    }),
+    deleteMultiGadgets: builder.mutation({
+      query: (deleteMulti) => {
+        // console.log(updateGadgetsValue, gadgetsId);
+        return {
+          url: `/gadgets`,
+          method: "DELETE",
+          body: deleteMulti,
+        };
+      },
+      invalidatesTags: ["gadgets"],
+    }),
+    addGadgets: builder.mutation({
+      query: (gadgetsInfo) => {
+        return {
+          url: `/gadgets`,
+          method: "POST",
+          body: gadgetsInfo,
+        };
+      },
+      invalidatesTags: ["gadgets"],
+    }),
+    addSales: builder.mutation({
+      query: (salesInfo) => {
+        return {
+          url: `/sales`,
+          method: "POST",
+          body: salesInfo,
+        };
+      },
+      invalidatesTags: ["gadgets"],
+    }),
   }),
 });
 
-export const { useGetAllGadgetsQuery, useUpdateGadgetsMutation } =
-  gadgetManagmentApi;
+export const {
+  useGetAllGadgetsQuery,
+  useUpdateGadgetsMutation,
+  useAddGadgetsMutation,
+  useDeleteGadgetsMutation,
+  useDeleteMultiGadgetsMutation,
+  useAddSalesMutation,
+} = gadgetManagmentApi;

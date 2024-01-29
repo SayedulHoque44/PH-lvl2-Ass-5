@@ -20,3 +20,10 @@ export type TGadgets = {
     dimensions?: string;
   };
 };
+
+//
+export type TSales = {
+  productId: string;
+  quantity: number;
+  buyerName: string;
+};

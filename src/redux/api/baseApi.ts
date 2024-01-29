@@ -29,8 +29,6 @@ const baseQueryCheckingStatus: BaseQueryFn<
 > = async (args, api, extraOptions): Promise<any> => {
   const result = await baseQuery(args, api, extraOptions);
 
-  console.log(result);
-
   if (result?.error?.status === 401) {
     console.log("logout");
     api.dispatch(logout());

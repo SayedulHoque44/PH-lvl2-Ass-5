@@ -1,7 +1,7 @@
 export const exampleGadget = {
   name: "Example Gadget",
   imageUrl: "https://example.com/gadget.jpg",
-  price: 999.99,
+  price: 99.99,
   quantity: 10,
   releaseDate: "2022-01-01",
   Brand: "Example Brand",
