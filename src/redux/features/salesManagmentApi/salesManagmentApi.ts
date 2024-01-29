@@ -11,6 +11,15 @@ const salesManagmentAPi = baseApi.injectEndpoints({
       },
       providesTags: ["gadgets"],
     }),
+    getSalesHistory: builder.query({
+      query: (history) => {
+        return {
+          url: `/sales?history=${history}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["gadgets"],
+    }),
     addSales: builder.mutation({
       query: (salesInfo) => {
         return {
@@ -24,5 +33,8 @@ const salesManagmentAPi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useAddSalesMutation, useGetAvailableGadgetsQuery } =
-  salesManagmentAPi;
+export const {
+  useAddSalesMutation,
+  useGetAvailableGadgetsQuery,
+  useGetSalesHistoryQuery,
+} = salesManagmentAPi;

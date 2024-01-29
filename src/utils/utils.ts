@@ -1,3 +1,5 @@
+import { TSalesFull } from "../pages/SalesHistory/ChartContainer/SalesLineChart/SalesLineChart";
+
 export const checkStringOrNumber = (value) => {
   if (typeof value === "number") {
     return "number";
@@ -21,4 +23,15 @@ export const compareObj = (matchObj, mainObj) => {
     }
   });
   return reqObj;
+};
+
+export const ModifiedChartData = (sales: TSalesFull[]) => {
+  return sales.map((ele) => ({
+    soldDate: `${new Date(ele.createdAt).getDate()}/${
+      new Date(ele.createdAt).getMonth() + 1
+    }/${new Date(ele.createdAt).getFullYear()}`,
+    SoldQuantity: ele.quantity,
+    BuyerName: ele.buyerName,
+    GadgetsName: ele?.productId?.name,
+  }));
 };
