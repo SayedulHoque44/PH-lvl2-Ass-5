@@ -61,13 +61,12 @@ const CardBox = ({ gadGets, selectMulti, setSelectMulti }) => {
           className="checkbox checkbox-primary absolute top-3 right-3"
         />
         <div>
-          <a href="#">
-            <img
-              className="rounded-t-lg"
-              src={imageUrl ? imageUrl : dummyImage}
-              alt="gadgets"
-            />
-          </a>
+          <img
+            className="rounded-t-lg h-[400px] object-cover"
+            src={imageUrl ? imageUrl : dummyImage}
+            alt="gadgets"
+          />
+
           <div className="p-5 flex flex-col space-y-3 text-lg">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               {name}

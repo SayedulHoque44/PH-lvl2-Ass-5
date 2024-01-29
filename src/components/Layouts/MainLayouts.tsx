@@ -1,5 +1,6 @@
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
+import SideItems from "./SideItems";
 
 const { Header, Content, Sider } = Layout;
 
@@ -20,25 +21,9 @@ const items = [
 const MainLayouts = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}>
-        <div className="demo-logo-vertical" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={items}
-        />
-      </Sider>
+      <SideItems />
       <Layout>
-        <Header style={{ padding: 0 }} />
+        <Header style={{ padding: 0 }}></Header>
         <Content style={{ margin: "24px 16px 0" }}>
           <div
             style={{

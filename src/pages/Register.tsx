@@ -1,13 +1,35 @@
 import { Button, Row } from "antd";
 import { FieldValues } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import Form from "../components/Form/Form";
 import FormInput from "../components/Form/FormInput";
+import { useRegisterMutation } from "../redux/features/Auth/authApi";
 
 const Register = () => {
   const navigate = useNavigate();
-  const onSubmit = (data: FieldValues) => {
-    navigate("/login");
+  const [register, { isLoading }] = useRegisterMutation();
+  //
+  const onSubmit = async (data: FieldValues) => {
+    const toastId = toast.loading("Registraing");
+
+    try {
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      };
+
+      const res = await register(userInfo).unwrap();
+      toast.success("Registration successfull!", {
+        id: toastId,
+        duration: 2000,
+      });
+      navigate(`/login`);
+    } catch (err: any) {
+      console.log(err);
+      toast.error(err.data.message, { id: toastId, duration: 2000 });
+    }
   };
 
   return (
@@ -20,7 +42,12 @@ const Register = () => {
           <FormInput type="text" name="name" label="name" />
           <FormInput type="text" name="email" label="email" />
           <FormInput type="text" name="password" label="Password" />
-          <Button htmlType="submit">Login</Button>
+          <Button
+            disabled={isLoading}
+            className="text-white disabled:text-white"
+            htmlType="submit">
+            Register
+          </Button>
         </Form>
         <p className="mt-2">
           Already have account?{" "}

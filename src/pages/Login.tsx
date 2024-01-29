@@ -12,7 +12,7 @@ import { verifyToken } from "../utils/verifyToken";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const [login] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
   const onSubmit = async (data: FieldValues) => {
     // console.log(data);
@@ -23,9 +23,7 @@ const Login = () => {
         email: data.email,
         password: data.password,
       };
-      console.log(userInfo);
       const res = await login(userInfo).unwrap();
-      console.log(res);
       const user = verifyToken(res.data.token);
       dispatch(setUser({ user: user, token: res.data.token }));
       toast.success("Logged in", { id: toastId, duration: 2000 });
@@ -45,7 +43,12 @@ const Login = () => {
           defaultValues={{ email: "sayed@gmail.com", password: "1234" }}>
           <FormInput type="text" name="email" label="email" />
           <FormInput type="text" name="password" label="Password" />
-          <Button htmlType="submit">Login</Button>
+          <Button
+            disabled={isLoading}
+            className="text-white disabled:text-white"
+            htmlType="submit">
+            Login
+          </Button>
         </Form>
         <p className="mt-2">
           Dont't have account?{" "}

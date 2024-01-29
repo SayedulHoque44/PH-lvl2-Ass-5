@@ -3,7 +3,6 @@ import SalesCardContainer from "./SalesCardContainer/SalesCardContainer";
 
 const SalesManagement = () => {
   const { data, isLoading } = useGetAvailableGadgetsQuery(undefined);
-  console.log(data);
   return (
     <div className="lg:p-20">
       <h1 className="text-center text-2xl font-semibold tracking-wide">
