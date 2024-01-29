@@ -14,9 +14,10 @@ type TFormConfig = {
 type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: ReactNode;
+  className?: string;
 } & TFormConfig;
 
-const Form = ({ onSubmit, children, defaultValues }: TFormProps) => {
+const Form = ({ onSubmit, children, defaultValues, className }: TFormProps) => {
   const formConfig: TFormConfig = {};
 
   if (defaultValues) {
@@ -27,7 +28,9 @@ const Form = ({ onSubmit, children, defaultValues }: TFormProps) => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>
+      <form className={className} onSubmit={methods.handleSubmit(onSubmit)}>
+        {children}
+      </form>
     </FormProvider>
   );
 };

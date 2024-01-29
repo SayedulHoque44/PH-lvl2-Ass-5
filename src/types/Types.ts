@@ -1,5 +1,6 @@
 export type TGadgets = {
   _id: string;
+  __v: string;
   name: string;
   imageUrl: string;
   price: number;

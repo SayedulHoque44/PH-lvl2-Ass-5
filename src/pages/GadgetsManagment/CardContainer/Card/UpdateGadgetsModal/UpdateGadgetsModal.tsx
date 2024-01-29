@@ -10,6 +10,30 @@ import FormInput from "../../../../../components/Form/FormInput";
 import { useUpdateGadgetsMutation } from "../../../../../redux/features/gadgetsManagment/gadGetsManagmentApi";
 import { TGadgets } from "../../../../../types/Types";
 
+export const checkStringOrNumber = (value) => {
+  if (typeof value === "number") {
+    return "number";
+  } else if (typeof value === "string") {
+    return "text";
+  }
+  return "text";
+};
+
+const compareObj = (matchObj, mainObj) => {
+  const numberValueToBe = ["quantity", "price"];
+  const reqObj: Record<string, unknown> = {};
+  Object.keys(matchObj).forEach((key) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (mainObj.hasOwnProperty(key)) {
+      if (numberValueToBe.find((ele) => ele === key)) {
+        reqObj[`${key}`] = parseInt(mainObj[key]);
+      } else {
+        reqObj[`${key}`] = mainObj[key];
+      }
+    }
+  });
+  return reqObj;
+};
 type TUpdateGadgetsModal = {
   gadGets: TGadgets;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,23 +45,33 @@ export default function UpdateGadgetsModal({
   setOpen,
   open,
 }: TUpdateGadgetsModal) {
+  const { features, createdAt, updatedAt, __v, _id, ...remainingInfo } =
+    gadGets;
   const [updateGadgets] = useUpdateGadgetsMutation();
   const handleClose = () => setOpen(false);
 
-  const defaultValues = {
-    name: gadGets.name,
-    Brand: gadGets.Brand,
-    Category: gadGets.Category,
-    imageUrl: gadGets.imageUrl,
-    modelNumber: gadGets.modelNumber,
-    price: gadGets.price,
-    quantity: gadGets.quantity,
-    releaseDate: gadGets.releaseDate,
-  };
+  // const manipulatePrimitiveNonPremitive = () => {
+  //   const obj: Record<string, unknown> = {};
+  //   Object.entries(remainingInfo).forEach((featureEleArray) => {
+  //     obj[`${featureEleArray[0]}`] = featureEleArray[1];
+  //   });
+
+  //   return obj;
+  // };
+
+  //
   const onSubmit = async (data: FieldValues) => {
-    const updateGadgetsValue = data;
+    console.log(data);
+    const gadgetsUpdateFeatures = compareObj(features, data);
+    const gadgetsOtherUpdateFields = compareObj(remainingInfo, data);
+
+    const updateGadgetsValue = {
+      ...gadgetsOtherUpdateFields,
+      features: { ...gadgetsUpdateFeatures },
+    };
     const gadgetsId = gadGets._id;
     const apiValue = { updateGadgetsValue, gadgetsId };
+    console.log(updateGadgetsValue);
 
     try {
       const res = await updateGadgets(apiValue).unwrap();
@@ -85,16 +119,44 @@ export default function UpdateGadgetsModal({
               <IoMdClose size={20} />
             </span>
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <Form onSubmit={onSubmit} defaultValues={defaultValues}>
-              <FormInput type="text" name="name" label="name" />
+          <Typography
+            component={"div"}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}>
+            <Form
+              onSubmit={onSubmit}
+              defaultValues={{ ...remainingInfo, ...features }}>
+              {/* <FormInput type="text" name="name" label="name" />
               <FormInput type="text" name="Brand" label="Brand" />
               <FormInput type="text" name="Category" label="Category" />
               <FormInput type="text" name="imageUrl" label="imageUrl" />
               <FormInput type="text" name="modelNumber" label="modelNumber" />
               <FormInput type="number" name="price" label="price" />
               <FormInput type="number" name="quantity" label="quantity" />
-              <FormInput type="text" name="releaseDate" label="releaseDate" />
+              <FormInput type="text" name="releaseDate" label="releaseDate" /> */}
+              {Object.entries(remainingInfo).map((featureEleArray) => {
+                return (
+                  <FormInput
+                    type={checkStringOrNumber(featureEleArray[1])}
+                    name={featureEleArray[0]}
+                    label={featureEleArray[0]}
+                  />
+                );
+              })}
+              {features && (
+                <>
+                  <h2>Featurs</h2>
+                  {Object.entries(features).map((featureEleArray) => {
+                    return (
+                      <FormInput
+                        type={checkStringOrNumber(featureEleArray[1])}
+                        name={featureEleArray[0]}
+                        label={featureEleArray[0]}
+                      />
+                    );
+                  })}
+                </>
+              )}
               <button
                 className="text-white w-full bg-blue-500 border-none p-2 "
                 type="submit">

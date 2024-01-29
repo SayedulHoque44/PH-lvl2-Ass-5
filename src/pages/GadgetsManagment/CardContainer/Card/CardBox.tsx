@@ -26,6 +26,7 @@ const CardBox = ({ gadGets }: { gadGets: TGadgets }) => {
     price,
     quantity,
     releaseDate,
+    features,
   } = gadGets;
   // console.log(isModalOpen, gadgetsEdit);
   return (
@@ -66,6 +67,19 @@ const CardBox = ({ gadGets }: { gadGets: TGadgets }) => {
             <span>Release Date:</span>
             <span>{releaseDate}</span>
           </div>
+          {features && (
+            <>
+              <h2 className="text-xl border-b-2 ">Featurs:</h2>
+              {Object.entries(features).map((featureEleArray) => {
+                return (
+                  <div className="flex justify-between">
+                    <span>{featureEleArray[0]}:</span>
+                    <span>{featureEleArray[1]}</span>
+                  </div>
+                );
+              })}
+            </>
+          )}
 
           <div className="flex justify-between">
             <button

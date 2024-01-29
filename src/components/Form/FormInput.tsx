@@ -5,11 +5,12 @@ type TInputProps = {
   type: string;
   name: string;
   label?: string;
+  className?: string;
 };
 
-const FormInput = ({ type, name, label }: TInputProps) => {
+const FormInput = ({ type, name, label, className }: TInputProps) => {
   return (
-    <div style={{ marginBottom: "20px" }}>
+    <div className={className} style={{ marginBottom: "20px" }}>
       {label ? label : null}
       <Controller
         name={name}
