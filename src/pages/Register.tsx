@@ -20,7 +20,9 @@ const Register = () => {
         password: data.password,
       };
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const res = await register(userInfo).unwrap();
+      console.log(res);
       toast.success("Registration successfull!", {
         id: toastId,
         duration: 2000,

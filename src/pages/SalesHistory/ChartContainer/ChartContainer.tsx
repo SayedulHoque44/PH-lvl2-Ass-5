@@ -1,8 +1,14 @@
 import ChartLoader from "../ChartLoader/ChartLoader";
 import SalesBarChart from "./SalesBarChart/SalesBarChart";
-import SalesLineChart from "./SalesLineChart/SalesLineChart";
+import SalesLineChart, { TSalesFull } from "./SalesLineChart/SalesLineChart";
 
-const ChartContainer = ({ sales, isLoading }) => {
+const ChartContainer = ({
+  sales,
+  isLoading,
+}: {
+  isLoading: boolean;
+  sales: TSalesFull[];
+}) => {
   return (
     <div>
       {isLoading ? (

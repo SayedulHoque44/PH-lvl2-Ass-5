@@ -1,23 +1,9 @@
 import { Layout } from "antd";
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import SideItems from "./SideItems";
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
-const items = [
-  {
-    key: "Gadgets Management",
-    label: <NavLink to={"/dashboard"}>Gadgets Managment</NavLink>,
-  },
-  {
-    key: "Sales Management",
-    label: <NavLink to={"/dashboard/SalesManagement"}>Sales Managment</NavLink>,
-  },
-  {
-    key: "Sales History",
-    label: <NavLink to={"/dashboard/SalesHistory"}>Sales History</NavLink>,
-  },
-];
 const MainLayouts = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>

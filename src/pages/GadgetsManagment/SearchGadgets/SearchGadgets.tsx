@@ -1,7 +1,12 @@
+import { FieldValues } from "react-hook-form";
 import Form from "../../../components/Form/Form";
 import FormInput from "../../../components/Form/FormInput";
 
-const SearchGadgets = ({ onSubmit }) => {
+const SearchGadgets = ({
+  onSubmit,
+}: {
+  onSubmit: (data: FieldValues) => void;
+}) => {
   return (
     <Form
       className="xl:col-span-2 col-span-1 flex items-center gap-2"

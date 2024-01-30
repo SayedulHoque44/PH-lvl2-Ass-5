@@ -6,18 +6,24 @@ import { IoMdClose } from "react-icons/io";
 import Form from "../../../components/Form/Form";
 import FormInput from "../../../components/Form/FormInput";
 
+import { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { useAddGadgetsMutation } from "../../../redux/features/gadgetsManagment/gadGetsManagmentApi";
 import { checkStringOrNumber, compareObj } from "../../../utils/utils";
 import { exampleGadget } from "./gadgets.const";
 
-const AddNewGadget = ({ open, setOpen }) => {
+type TAddNewGadget = {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AddNewGadget = ({ open, setOpen }: TAddNewGadget) => {
   const { features, ...remainingInfo } = exampleGadget;
   const [addGadgets, { isLoading }] = useAddGadgetsMutation();
   const handleClose = () => setOpen(false);
   const handleOpen = () => setOpen(true);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FieldValues) => {
     const gadgetsUpdateFeatures = compareObj(features, data);
     const gadgetsOtherUpdateFields = compareObj(remainingInfo, data);
 

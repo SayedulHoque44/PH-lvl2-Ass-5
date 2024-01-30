@@ -1,6 +1,6 @@
 import { TSalesFull } from "../pages/SalesHistory/ChartContainer/SalesLineChart/SalesLineChart";
 
-export const checkStringOrNumber = (value) => {
+export const checkStringOrNumber = (value: any) => {
   if (typeof value === "number") {
     return "number";
   } else if (typeof value === "string") {
@@ -9,7 +9,7 @@ export const checkStringOrNumber = (value) => {
   return "text";
 };
 
-export const compareObj = (matchObj, mainObj) => {
+export const compareObj = (matchObj: any, mainObj: any) => {
   const numberValueToBe = ["quantity", "price"];
   const reqObj: Record<string, unknown> = {};
   Object.keys(matchObj).forEach((key) => {

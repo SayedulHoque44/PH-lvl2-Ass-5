@@ -19,6 +19,8 @@ export type TGadgets = {
     weight?: string;
     dimensions?: string;
   };
+  createdAt: string;
+  updatedAt: string;
 };
 
 //

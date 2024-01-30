@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FieldValues } from "react-hook-form";
 import { useGetAllGadgetsQuery } from "../../redux/features/gadgetsManagment/gadGetsManagmentApi";
 import AddNewGadget from "./AddNewGadget/AddNewGadget";
 import CardContainer from "./CardContainer/CardContainer";
@@ -8,10 +9,10 @@ import SeeAll from "./SeeAll/SeeAll";
 
 const GadgetsManagment = () => {
   const [query, setQuery] = useState({});
-  const { data, error, isLoading } = useGetAllGadgetsQuery(query);
+  const { data, isLoading } = useGetAllGadgetsQuery(query);
   const [open, setOpen] = useState(false);
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FieldValues) => {
     const filter = {
       minPrice: value[0],
       maxPrice: value[1],
@@ -28,7 +29,7 @@ const GadgetsManagment = () => {
 
   const [value, setValue] = useState<number[]>([20, 37]);
 
-  const handlePriceRange = (event: Event, newValue: number | number[]) => {
+  const handlePriceRange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as number[]);
   };
 

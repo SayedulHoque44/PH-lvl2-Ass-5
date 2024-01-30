@@ -9,9 +9,13 @@ import UpdateGadgetsModal from "./UpdateGadgetsModal/UpdateGadgetsModal";
 const dummyImage =
   "https://iconicentertainment.in/wp-content/uploads/2013/11/dummy-image-square.jpg";
 
-type TCardBox = { gadGets: TGadgets };
+type TCardBox = {
+  gadGets: TGadgets;
+  selectMulti: string[];
+  setSelectMulti: any;
+};
 
-const CardBox = ({ gadGets, selectMulti, setSelectMulti }) => {
+const CardBox = ({ gadGets, selectMulti, setSelectMulti }: TCardBox) => {
   const [open, setOpen] = useState(false);
   const [deleteSingleGadgets, { isLoading }] = useDeleteGadgetsMutation();
   const handleOpen = () => setOpen(true);
@@ -26,7 +30,7 @@ const CardBox = ({ gadGets, selectMulti, setSelectMulti }) => {
     }
   };
   //
-  const handleCheckBox = (e) => {
+  const handleCheckBox = (e: any) => {
     const gadgetsId = gadGets._id;
     const checked = e.target.checked;
     if (checked) {
@@ -102,7 +106,7 @@ const CardBox = ({ gadGets, selectMulti, setSelectMulti }) => {
                   return (
                     <div key={index} className="flex justify-between">
                       <span>{featureEleArray[0]}:</span>
-                      <span>{featureEleArray[1]}</span>
+                      <span>{featureEleArray[1] as string}</span>
                     </div>
                   );
                 })}

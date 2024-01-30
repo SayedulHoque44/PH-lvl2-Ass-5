@@ -1,4 +1,4 @@
-const createSearchQuery = (queryObj: TQueryObj) => {
+const createSearchQuery = (queryObj: any) => {
   const keys = Object.keys(queryObj);
   if (keys.length > 0) {
     let queryAttach = "";
@@ -14,7 +14,13 @@ const createSearchQuery = (queryObj: TQueryObj) => {
     return "";
   }
 };
-const SeeAll = ({ handelSeeAll, query }) => {
+const SeeAll = ({
+  handelSeeAll,
+  query,
+}: {
+  handelSeeAll: () => void;
+  query: any;
+}) => {
   return (
     <div className="flex justify-center items-center py-3 gap-3">
       <button

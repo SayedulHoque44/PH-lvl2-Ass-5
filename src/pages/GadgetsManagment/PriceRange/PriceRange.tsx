@@ -1,6 +1,12 @@
 import { Slider } from "@mui/material";
 
-const PriceRange = ({ value, handleChange }) => {
+const PriceRange = ({
+  value,
+  handleChange,
+}: {
+  value: number[];
+  handleChange: (_event: Event, newValue: number | number[]) => void;
+}) => {
   return (
     <div className="flex flex-col justify-center items-center">
       <h2>Price Range</h2>

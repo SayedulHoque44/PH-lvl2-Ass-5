@@ -1,31 +1,22 @@
-# React + TypeScript + Vite
+## [GadgetDashboard-client](https://lvl2-ass-5-client.web.app)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Developoment
 
-Currently, two official plugins are available:
+- `npm run dev` -> for dev
+- `npm run build` -> for build
+- `npm run start` -> for production
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Functionality
 
-## Expanding the ESLint configuration
+### User
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- "User can manage gadgets"
+  -"CRUD operation for gadgets"
+  -"Bulk delete"
+- "User can manage sells"
+- "User can view sells history"
 
-- Configure the top-level `parserOptions` property like this:
+### Authentication
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
-# l2b2-full-stack-a5-client-side-SayedulHoque44
+- "To access dashboard user must register and login"
+- "for secure authorization used JWT"
