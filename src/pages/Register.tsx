@@ -29,7 +29,7 @@ const Register = () => {
       });
       navigate(`/login`);
     } catch (err: any) {
-      console.log(err);
+      // console.log(err);
       toast.error(err.data.message, { id: toastId, duration: 2000 });
     }
   };

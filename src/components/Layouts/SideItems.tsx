@@ -39,7 +39,7 @@ const SideItems = () => {
       breakpoint="lg"
       collapsedWidth="0"
       onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
+        // console.log(collapsed, type);
       }}>
       <div className="demo-logo-vertical" />
       <Menu

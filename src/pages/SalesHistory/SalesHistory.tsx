@@ -6,7 +6,7 @@ import SalesFilter from "./SalesFilter/SalesFilter";
 const SalesHistory = () => {
   const [history, setHistory] = useState<string>("Daily");
   const { data, isLoading } = useGetSalesHistoryQuery(history);
-  console.log(data);
+  // console.log(data);
   return (
     <div className="lg:p-20">
       <h1 className="text-center text-2xl font-semibold tracking-wide">

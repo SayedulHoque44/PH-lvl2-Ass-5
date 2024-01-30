@@ -5,7 +5,7 @@ const createSearchQuery = (queryObj: any) => {
     for (const [key, value] of Object.entries(queryObj)) {
       // add valuable query field
       if (typeof value !== "undefined") {
-        console.log(value);
+        // console.log(value);
         queryAttach += ` & ${key}=${value}`;
       }
     }

@@ -23,7 +23,7 @@ const SalesFilter = ({ history, setHistory }: TSalesFilterProps) => {
   const handleOpen = () => {
     setOpen(true);
   };
-  console.log(history);
+  // console.log(history);
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }}>
       <InputLabel id="demo-controlled-open-select-label">History</InputLabel>
