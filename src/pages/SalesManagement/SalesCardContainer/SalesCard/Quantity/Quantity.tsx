@@ -10,17 +10,17 @@ const Quantity = ({ count, handleIncrese, handleDecrese }: TQuantityProps) => {
   return (
     <div className="flex justify-center gap-3">
       <span
-        onClick={handleIncrese}
+        onClick={handleDecrese}
         className="p-2 font-semibold  cursor-pointer">
-        <FaPlus size={20} />
+        <FaMinus size={20} />
       </span>
       <span className="py-1 px-4 border-2 font-bold text-lg border-gray-400">
         {count}
       </span>
       <span
-        onClick={handleDecrese}
+        onClick={handleIncrese}
         className="p-2 font-semibold  cursor-pointer">
-        <FaMinus size={20} />
+        <FaPlus size={20} />
       </span>
     </div>
   );
