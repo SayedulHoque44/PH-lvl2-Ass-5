@@ -1,4 +1,4 @@
-## [GadgetDashboard-Client](https://lvl2-ass-5-client.web.app)
+## [GadgetDashboard-Client](https://lvl2-assignment5-client.web.app/)
 
 ## [GadgetDashboard-Server](https://assignment-5-ph-lvl2-server.vercel.app/)
 
